@@ -1,0 +1,84 @@
+package dsa;
+
+class Queue{
+	private int arr[];
+	private int size;
+	private int front;
+	private int rear;
+	
+	Queue(int size){
+		this.size = size;
+		arr = new int[size];
+		front = -1;
+		rear = -1;
+	}
+	
+	Boolean isFull() {
+		if(rear ==size-1) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	Boolean isEmpty() {
+		if(rear == -1) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	void enqueue(int num) {
+		if(isFull()) {
+			System.out.println("Queue is full");
+		}else {
+			if(front == -1)
+				front++;
+			rear++;
+			arr[rear] = num;
+		}
+	}
+	
+	int dequeue() {
+		if(isEmpty()) {
+			System.out.println("Queue is empty");
+			return -9999;
+		}else {
+			if(front == rear) {
+				int temp = arr[front];
+				front = -1;
+				rear = -1;
+				return temp;
+			}else {
+				int temp = arr[front];
+				front++;
+				return temp;
+			}
+		}
+	}
+	
+	void printQueue() {
+		for(int i = front;i<=rear;i++) {
+			System.out.print(arr[i] + " ");
+		}
+	}
+}
+public class QueueDSA {
+
+	public static void main(String[] args) {
+		Queue q = new Queue(5);
+		q.dequeue();
+		q.enqueue(1);
+		q.enqueue(2);
+		q.enqueue(3);
+		q.enqueue(4);
+		q.enqueue(5);
+		q.enqueue(6);
+		System.out.println(q.dequeue());
+		System.out.println(q.dequeue());
+		System.out.println(q.dequeue());
+		q.printQueue();
+	}
+
+}
