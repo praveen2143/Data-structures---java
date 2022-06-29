@@ -1,0 +1,108 @@
+package dsa;
+
+class CircularQueue{
+	private int arr[];
+	private int size;
+	private int front;
+	private int rear;
+	
+	CircularQueue(int size){
+		this.size = size;
+		arr = new int[size];
+		front = -1;
+		rear = -1;
+	}
+	
+	Boolean isFull() {
+		if((rear ==size-1 && front == 0) || (front == rear + 1)) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	Boolean isEmpty() {
+		if(rear == -1) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	void enqueue(int num) {
+		if(isFull()) {
+			System.out.println("Queue is full");
+		}else if(front == -1){
+			front++;
+			rear++;
+			arr[rear] = num;
+		}else if(rear == size-1) {
+			rear =0;
+			arr[rear] = num;
+		}else {
+			rear++;
+			arr[rear] = num;
+		}
+	}
+	
+	int dequeue() {
+		if(isEmpty()) {
+			System.out.println("Queue is empty");
+			return -9999;
+		}else {
+			if(front == rear) {
+				int temp = arr[front];
+				front = -1;
+				rear = -1;
+				return temp;
+			}else if(front == size-1){
+				int temp = arr[front];
+				front = 0;
+				return temp;
+			}else {
+				int temp = arr[front];
+				front++;
+				return temp;
+			}
+		}
+	}
+	
+	void printQueue() {
+		if(front <=rear) {
+			for(int i = front;i<=rear;i++) {
+				System.out.print(arr[i] + " ");
+			}
+		}else {
+			for(int i=front;i<=size-1;i++) {
+				System.out.print(arr[i] + " ");
+			}
+			for(int i = 0;i<=rear;i++) {
+				System.out.print(arr[i] + " ");
+			}
+		}
+		
+	}
+
+}
+
+public class CircularQueueDSA {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		CircularQueue q = new CircularQueue(5);
+		q.dequeue();
+		q.enqueue(1);
+		q.enqueue(2);
+		q.enqueue(3);
+		q.enqueue(4);
+		q.enqueue(5);
+		q.enqueue(6);
+		System.out.println(q.dequeue());
+		System.out.println(q.dequeue());
+		System.out.println(q.dequeue());
+		q.enqueue(6);
+		q.printQueue();
+
+	}
+
+}
