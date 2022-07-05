@@ -1,0 +1,57 @@
+package dsa;
+
+class Node{
+	int value;
+	Node left;
+	Node right;
+	
+	Node(int val){
+		value = val;
+		left = null;
+		right = null;
+	}
+}
+
+public class TreeTraversal {
+
+	void inorderTraversal(Node root) {
+		if(root != null) {
+			inorderTraversal(root.left);
+			System.out.println(root.value);
+			inorderTraversal(root.right);
+		}
+	}
+	
+	void preorderTraversal(Node root) {
+		if(root != null) {
+			System.out.println(root.value);
+			preorderTraversal(root.left);
+			preorderTraversal(root.right);
+		}
+	}
+	
+	void postorderTraversal(Node root) {
+		if(root != null) {
+			postorderTraversal(root.left);
+			postorderTraversal(root.right);
+			System.out.println(root.value);
+		}
+	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Node root = new Node(1);
+		root.left = new Node(2);
+		root.right = new Node(3);
+		root.left.left = new Node(4);
+		TreeTraversal t =  new TreeTraversal();
+		System.out.println("Inorder traversal");
+		t.inorderTraversal(root);
+		System.out.println("Preorder traversal");
+		t.preorderTraversal(root);
+		System.out.println("Postorder traversal");
+		t.postorderTraversal(root);
+		
+	}
+
+}
