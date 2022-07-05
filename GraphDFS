@@ -1,0 +1,52 @@
+package dsa;
+
+import java.util.*;
+
+class Graph{
+	private ArrayList<ArrayList<Integer>> graph;
+	int visited[];
+	
+	Graph(int v){
+		graph = new ArrayList<ArrayList<Integer>>();
+		visited = new int[v];
+		for(int i =0;i<v;i++) {
+			graph.add(new ArrayList<Integer>());
+			visited[i] = 0;
+		}
+		
+	}
+	
+	void addEdge(int src,int des) {
+		graph.get(src).add(des);
+		graph.get(des).add(src);
+	}
+	
+	void DFS(int start) {
+		visited[start] = 1;
+		System.out.println(start);
+		List<Integer> con = graph.get(start); 
+		for(int i=0;i<con.size();i++) {
+			int node = con.get(i);
+			if(visited[node]==0) {
+				DFS(node);
+			}
+		}
+	}
+}
+
+public class GraphDFS {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Graph g = new Graph(5);
+		g.addEdge(0, 1);
+		g.addEdge(0, 2);
+		g.addEdge(0, 3);
+		g.addEdge(2, 4);
+		
+		g.DFS(0);
+		
+		
+	}
+
+}
