@@ -1,0 +1,67 @@
+package dsa;
+
+import java.util.ArrayList;
+
+class Heap{
+	void heapify(ArrayList<Integer> h,int a) {
+		int largest = a;
+		int l = 2*a + 1;
+		int r = 2*a + 2;		
+		if(l<h.size() && h.get(l)>h.get(largest))
+			largest = l;
+		if(r<h.size() && h.get(r)>h.get(largest))
+			largest = r;
+		
+		if(largest != a) {
+			int temp = h.get(largest);
+			h.set(largest,h.get(a));
+			h.set(a,temp);
+			heapify(h,largest);
+		}
+	}
+	
+	void insert(ArrayList<Integer> h,int num) {
+		h.add(num);
+		int size = h.size();
+		for(int i=(size/2) - 1;i>=0;i--) {
+			heapify(h,i);
+		}
+	}
+	
+	void delete(ArrayList<Integer> h,int num) {
+		for(int i=0;i<h.size();i++) {
+			if(h.get(i) == num) {
+				h.set(i, h.get(h.size()-1));
+				h.remove(h.size()-1);
+			}
+		}
+		for(int i=(h.size()/2) - 1;i>=0;i--) {
+			heapify(h,i);
+		}
+	}
+	
+	void printHeap(ArrayList<Integer> h) {
+		for(int i=0;i<h.size();i++) {
+			System.out.println(h.get(i));
+		}
+	}
+
+}
+public class HeapDSA {
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Heap h = new Heap();
+		ArrayList<Integer> l = new ArrayList<Integer>();
+		h.insert(l, 1);
+		h.insert(l, 2);
+		h.insert(l, 3);
+		h.insert(l, 5);
+		h.insert(l, 6);
+		
+		h.delete(l, 4);
+		h.delete(l, 3);
+		
+		h.printHeap(l);
+	}
+
+}
