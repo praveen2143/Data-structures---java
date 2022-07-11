@@ -1,0 +1,48 @@
+package dsa;
+
+class PerfectBTreeNode{
+	int val;
+	PerfectBTreeNode left;
+	PerfectBTreeNode right;
+	
+	PerfectBTreeNode(int num){
+		val = num;
+		left = null;
+		right = null;
+	}
+}
+
+public class PerfectBinaryTree {
+	
+	int treeHeight(PerfectBTreeNode root) {
+		int height = 0;
+		while(root != null) {
+			root = root.left;
+			height++;
+		}
+		return height - 1;
+	}
+	
+	Boolean checkPerfectBinaryTree(PerfectBTreeNode root,int level,int height) {
+		if(root == null)
+			return true;
+		
+		if(root.left == null && root.right == null)
+			return level == height;
+		
+		if(root.left == null || root.right == null)
+			return false;
+		
+		return checkPerfectBinaryTree(root.left,level+1,height) && checkPerfectBinaryTree(root.right,level+1,height); 
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		PerfectBinaryTree t = new PerfectBinaryTree();
+		PerfectBTreeNode root = new PerfectBTreeNode(1);
+		root.left = new PerfectBTreeNode(2);
+		root.right = new PerfectBTreeNode(3);
+		//root.left.left = new PerfectBTreeNode(4);
+		System.out.println(t.checkPerfectBinaryTree(root,0,t.treeHeight(root)));
+	}
+
+}
