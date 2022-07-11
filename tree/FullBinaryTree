@@ -1,0 +1,38 @@
+package dsa;
+class TreeNode{
+	int val;
+	TreeNode left;
+	TreeNode right;
+	
+	TreeNode(int num){
+		val = num;
+		left = null;
+		right = null;
+	}
+}
+public class FullBinaryTree {
+	Boolean checkFullBinaryTree(TreeNode root) {
+		if(root == null)
+			return true;
+		
+		if(root.left == null && root.right == null)
+			return true;
+		
+		if(root.left!=null && root.right !=null)
+			return checkFullBinaryTree(root.left) && checkFullBinaryTree(root.right);
+		
+		return false;
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		TreeNode root = new TreeNode(1);
+		root.left = new TreeNode(2);
+		root.right = new TreeNode(2);
+		//root.right.left = new TreeNode(2);
+		
+		FullBinaryTree t = new FullBinaryTree();
+		Boolean res = t.checkFullBinaryTree(root);
+		System.out.print(res);
+	}
+
+}
