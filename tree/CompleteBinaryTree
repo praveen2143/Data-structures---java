@@ -1,0 +1,42 @@
+package dsa;
+
+class CompleteBTreeNode{
+	int val;
+	CompleteBTreeNode left;
+	CompleteBTreeNode right;
+	
+	CompleteBTreeNode(int num){
+		val = num;
+		left = null;
+		right = null;
+	}
+}
+public class CompleteBinaryTree {
+	int calculateNodeCount(CompleteBTreeNode root) {
+		if(root == null)
+			return 0;
+		return (1 + calculateNodeCount(root.left) + calculateNodeCount(root.right));
+	}
+	
+	Boolean checkCompleteBinaryTree(CompleteBTreeNode root,int currentNode,int totalNodes) {
+		if(root == null)
+			return true;
+		if(currentNode >= totalNodes)
+			return false;
+		
+		return checkCompleteBinaryTree(root.left,2*currentNode + 1,totalNodes) && checkCompleteBinaryTree(root.right,2*currentNode + 2,totalNodes);
+	}
+
+	public static void main(String[] args) {
+		
+		CompleteBTreeNode root = new CompleteBTreeNode(1);
+		root.left = new CompleteBTreeNode(2);
+		root.right = new CompleteBTreeNode(2);
+		//root.right.left = new CompleteBTreeNode(2);
+		
+		CompleteBinaryTree t = new CompleteBinaryTree();
+		Boolean res = t.checkCompleteBinaryTree(root,0,t.calculateNodeCount(root));
+		System.out.print(res);
+	}
+
+}
