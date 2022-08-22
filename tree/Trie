@@ -1,0 +1,102 @@
+
+public class Trie {
+	static int Alphabets = 26;
+	static class TrieNode{
+		TrieNode[] children = new TrieNode[Alphabets];
+		Boolean isEndOfWord = false;
+		
+		TrieNode(){
+			for(int i=0;i<Alphabets;i++) {
+				children[i] = null;
+			}
+		}
+	}
+	static TrieNode root = new TrieNode();
+	
+	static void insert(String s) {
+		int level = 0;
+		int length = s.length();
+		TrieNode pCrawl = root;
+		for(level=0;level<length;level++) {
+			int index = s.charAt(level) - 'a';
+			if(pCrawl.children[index] == null) {
+				pCrawl.children[index] = new TrieNode();
+			}
+			pCrawl = pCrawl.children[index];
+		}
+		pCrawl.isEndOfWord = true;
+	}
+	
+	static Boolean search(String s) {
+		int level = 0;
+		int length = s.length();
+		TrieNode pCrawl = root;
+		for(level=0;level<length;level++) {
+			int index = s.charAt(level) - 'a';
+			if(pCrawl.children[index] == null) {
+				return false;
+			}else {
+				pCrawl = pCrawl.children[index];
+			}
+			
+		}
+		return pCrawl.isEndOfWord;
+	}
+	static Boolean isEmpty(TrieNode root) {
+		for(int i=0;i<Alphabets;i++) {
+			if(root.children[i] != null)
+				return false;
+		}
+		return true;
+	}
+	static TrieNode delete(TrieNode root,String s,int level) {
+		//int index = s.charAt(level) - 'a';
+		if(root == null)
+			return root;
+		if(level == s.length()) {
+			if(root.isEndOfWord)
+				root.isEndOfWord = false;
+			
+			if(isEmpty(root))
+				root = null;
+			
+			return root;
+		}
+		int index = s.charAt(level) - 'a';
+		root.children[index] = delete(root.children[index],s,level+1);
+		
+		if(isEmpty(root) && !root.isEndOfWord)
+			return null;
+		
+		return root;
+	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+			String[] words = {"this","their","the","what","name"};
+			for(int i=0;i<words.length;i++) {
+				insert(words[i]);
+			}
+			String[] sentence = {"what","is","the","name"};
+			for(int i=0;i<sentence.length;i++) {
+				if(search(sentence[i])) {
+					System.out.println(sentence[i] + " --> Present");
+				}else {
+					System.out.println(sentence[i] + " --> Not Present");
+				}
+			}
+			String[] deleteWords = {"the","name"};
+			for(int i=0;i<deleteWords.length;i++) {
+				delete(root,deleteWords[i],0);
+			}
+			
+			for(int i=0;i<sentence.length;i++) {
+				if(search(sentence[i])) {
+					System.out.println(sentence[i] + " --> Present");
+				}else {
+					System.out.println(sentence[i] + " --> Not Present");
+				}
+			}
+	}
+
+}
